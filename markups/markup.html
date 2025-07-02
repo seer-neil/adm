@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developers Meetup 2024</title>
+    <style>
+        /* Adobe Red Theme Variables */
+        :root {
+            --adobe-red: #E34F26;
+            --adobe-dark-red: #D73502;
+            --white: #FFFFFF;
+            --light-gray: #F8F8F8;
+            --dark-gray: #333333;
+            --text-gray: #666666;
+            --border-gray: #E1E1E1;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Adobe Clean', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--adobe-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.5rem;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: 'A';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            font-family: 'Adobe Clean', sans-serif;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--adobe-red);
+        }
+
+        /* Mobile Navigation */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 20px;
+            text-align: left;
+            background: var(--light-gray);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--adobe-red);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+        }
+
+        .event-details {
+            background: var(--adobe-red);
+            color: var(--white);
+            padding: 30px 40px;
+            margin: 40px 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: inline-block;
+            border-radius: 8px;
+        }
+
+        .register-button {
+            background: var(--adobe-red);
+            color: var(--white);
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;  /* Fixed: Changed from inline-block to block */
+            margin-top: 30px;
+            width: fit-content;  /* So it doesn't stretch full width */
+        }
+
+        .register-button:hover {
+            background: var(--adobe-dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(227, 79, 38, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 20px;
+            background: var(--white);
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            max-width: 800px;
+        }
+
+        /* Speakers Section */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .speaker-card {
+            text-align: center;
+        }
+
+        .speaker-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--adobe-red);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speaker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .speaker-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+
+        .speaker-title {
+            color: var(--adobe-red);
+            font-weight: 600;
+        }
+
+        /* Timeline/Agenda Section */
+        .timeline {
+            background: var(--light-gray);
+            padding: 80px 20px;
+        }
+
+        .timeline h2 {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--adobe-red);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: calc(50% - 30px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -30px;
+            border-left-color: var(--white);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -30px;
+            border-right-color: var(--white);
+        }
+
+        .timeline-time {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--adobe-red);
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: var(--adobe-red);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 4px var(--adobe-red);
+        }
+
+        /* Sponsors Section */
+        .sponsors {
+            background: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .sponsors h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .sponsor-logo {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text-gray);
+            border: 2px solid transparent;
+        }
+
+        .sponsor-logo:hover {
+            transform: translateY(-5px);
+            border-color: var(--adobe-red);
+        }
+
+        .sponsor-logo img {
+            max-width: 100%;
+            max-height: 60px;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .sponsor-logo:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--light-gray);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        .contact-info {
+            font-size: 1.5rem;
+        }
+
+        .contact-email {
+            color: var(--adobe-red);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--adobe-red);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+                text-align: center;
+            }
+            
+            .hero {
+                text-align: center;  /* Center everything on mobile */
+            }
+            
+            .event-details {
+                text-align: center;
+                font-size: 1.2rem;
+                padding: 20px 30px;
+            }
+            
+            .speakers-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 30px;
+            }
+            
+            .timeline-container::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                padding-left: 60px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .timeline-content {
+                width: 100%;
+            }
+            
+            .timeline-content::before {
+                left: -30px !important;
+                border-right-color: var(--white) !important;
+                border-left-color: transparent !important;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .sponsors-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 60px 15px;
+            }
+            
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline {
+                padding: 60px 15px;
+            }
+
+            .sponsors {
+                padding: 60px 15px;
+            }
+
+            .contact {
+                padding: 60px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+            </div>
+            <nav id="nav">
+                <a href="#about">About</a>
+                <a href="#speakers">Speakers</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="nav-toggle" onclick="toggleNav()">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>DEVELOPERS<br>MEETUP</h1>
+            <div class="event-details">
+                Join us on June 20, 2024<br>
+                San Francisco, CA
+            </div>
+            <a href="#register" class="register-button">REGISTER NOW</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>ABOUT THE EVENT</h2>
+            <p>Connect with fellow developers, learn about the latest technologies, and share knowledge in an inspiring environment. This meetup brings together innovative minds from across the tech industry to explore cutting-edge development practices, emerging frameworks, and the future of software engineering.</p>
+            <br>
+            <p>Whether you're a seasoned developer or just starting your journey, you'll find valuable insights, networking opportunities, and hands-on learning experiences that will advance your career and expand your technical horizons.</p>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="section">
+        <div class="container">
+            <h2>SPEAKERS</h2>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-avatar">👤</div>
+                    <div class="speaker-name">John Statue</div>
+                    <div class="speaker-title">Job Titler</div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-avatar">👤</div>
+                    <div class="speaker-name">Anne Smith</div>
+                    <div class="speaker-title">Sales Titler</div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-avatar">👤</div>
+                    <div class="speaker-name">John Steen</div>
+                    <div class="speaker-title">Manager</div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-avatar">👤</div>
+                    <div class="speaker-name">John Jator</div>
+                    <div class="speaker-title">Product</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline/Agenda Section -->
+    <section class="timeline">
+        <div class="container">
+            <h2>AGENDA</h2>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">9:00 AM</div>
+                        <div class="timeline-title">Registration & Networking</div>
+                        <div class="timeline-desc">Welcome coffee and registration. Network with fellow developers and get your conference materials.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">9:30 AM</div>
+                        <div class="timeline-title">Opening Keynote</div>
+                        <div class="timeline-desc">Welcome address and overview of the current state of web development by John Statue.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">10:30 AM</div>
+                        <div class="timeline-title">Modern JavaScript Frameworks</div>
+                        <div class="timeline-desc">Deep dive into React, Vue, and Angular best practices with Anne Smith.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">11:30 AM</div>
+                        <div class="timeline-title">Coffee Break</div>
+                        <div class="timeline-desc">Networking break with refreshments and sponsor showcases.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">12:00 PM</div>
+                        <div class="timeline-title">DevOps for Developers</div>
+                        <div class="timeline-desc">CI/CD pipelines and deployment strategies with John Steen.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">1:00 PM</div>
+                        <div class="timeline-title">Lunch & Networking</div>
+                        <div class="timeline-desc">Catered lunch with continued networking and informal discussions.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">2:30 PM</div>
+                        <div class="timeline-title">Product Strategy for Developers</div>
+                        <div class="timeline-desc">Understanding product development from a technical perspective with John Jator.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">3:30 PM</div>
+                        <div class="timeline-title">Panel Discussion</div>
+                        <div class="timeline-desc">All speakers participate in a Q&A session about the future of development.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-time">4:30 PM</div>
+                        <div class="timeline-title">Closing & Networking</div>
+                        <div class="timeline-desc">Final thoughts and continued networking with drinks and snacks.</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section class="sponsors">
+        <div class="container">
+            <h2>SPONSORS & ORGANIZERS</h2>
+            <div class="sponsors-grid">
+                <div class="sponsor-logo">ADOBE</div>
+                <div class="sponsor-logo">GOOGLE</div>
+                <div class="sponsor-logo">MICROSOFT</div>
+                <div class="sponsor-logo">NETFLIX</div>
+                <div class="sponsor-logo">META</div>
+                <div class="sponsor-logo">AMAZON</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>CONTACT</h2>
+            <div class="contact-info">
+                <a href="mailto:info@devmeetup.com" class="contact-email">info@devmeetup.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Developers Meetup. All rights reserved.</p>
+            <p>Follow us on Twitter | LinkedIn | GitHub</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('nav');
+            nav.classList.toggle('active');
+        }
+
+        // Close mobile nav when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav').classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
